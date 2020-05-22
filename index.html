@@ -1,0 +1,48 @@
+<!doctype html>
+
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Chuck Norris by Bogdan Bendziukov</title>
+	
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/chuck.css">
+	
+
+</head>
+
+<body>
+<div class="site-wrapper">
+	<header class="site-header">
+		MSI 2020
+	</header>
+	<section class="site-content">
+		<h1 class="title">Hey!</h1>
+		<h2 class="subtitle">Let’s try to find a joke for you:</h2>
+		
+		<form class="joke-form" method="get">
+			<input type="radio" name="joke-type" class="radio" value="random" id="radio-random" checked /><label for="radio-random">Random</label>
+			<input type="radio" name="joke-type" class="radio" value="cat" id="radio-cat" /><label for="radio-cat">From caterogies</label>
+			<div class="joke-cats joke-toggle">
+				<span class="joke-cat">animal</span>
+				<span class="joke-cat">career</span>
+				<span class="joke-cat selected">celebrity</span>
+				<span class="joke-cat">dev</span>
+			</div>
+			<input type="hidden" name="joke-cats" />
+			<input type="radio" name="joke-type" class="radio" value="search" id="radio-search" /><label for="radio-search">Search</label>
+			<div class="joke-search joke-toggle">
+				<input type="search" name="joke-search" placeholder="Free text search..." />
+			</div>
+			<button class="btn" type="submit">Get a joke</button>
+		</form>
+	</section>
+</div>
+
+<script src="js/chuck.js"></script>
+	
+	
+</body>
+</html>
