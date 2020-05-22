@@ -130,6 +130,7 @@ a:hover {
   background: #F8F8F8;
   padding: 40px;
   border-radius: 20px;
+  margin-bottom: 20px;
 }
 .joke-single__inner {
   display: flex;
