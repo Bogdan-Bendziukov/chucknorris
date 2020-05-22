@@ -2,6 +2,7 @@
 @import "normalize.css";
 
 @import (css) url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
+@primary-color: #333;
 .transition(){
 	transition: all 300ms ease-in;
 }
@@ -10,7 +11,7 @@ body {
 	font-family: Roboto, Arial, sans-serif;
 	font-style: normal;
 	font-weight: 400;
-	color: #333333;
+	color: @primary-color;
 	font-size: 18px;
 	line-height: 1.4;
 }
@@ -46,8 +47,9 @@ body {
 .joke {
 	&-form {
 		margin-top: 46px;
+		margin-bottom: 40px;
 		
-		label {
+		& > label {
 			display: block;
 			margin-bottom: 15px;
 			position: relative;
@@ -67,7 +69,7 @@ body {
 			}
 			
 		}
-		[type="radio"] {
+		& > [type="radio"] {
 			display: none;
 			
 			&:checked {
@@ -80,14 +82,14 @@ body {
 						position: absolute;
 						width: 10px;
 						height: 10px;
-						background: #333333;
+						background: @primary-color;
 						border-radius: 50%;
 						left: 7.5px;
 						top: 7px;
 					}
 					& + .joke-toggle {
 						transform: scale(1,1);
-						max-height: 50px;
+						max-height: 150px;
 						padding: 5px 0 20px;
 					}
 				}
@@ -102,8 +104,76 @@ body {
 		.transition();
 		
 	}
-	&-cat {
-		border: 2px solid #F8F8F8;
-		border-radius: 6px;
+	&-cats {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		
+		label {
+			border: 2px solid #F8F8F8;
+			border-radius: 6px;
+			font-weight: 500;
+			font-size: 12px;
+			line-height: 16px;
+			letter-spacing: 2px;
+			text-transform: uppercase;
+			color: #ABABAB;
+			display: block;
+			padding: 6px 15px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			.transition();
+			cursor: pointer;
+			
+			&:hover {
+				background: #F8F8F8;
+				color: @primary-color;
+			}
+		}
+		
+		[type="radio"] {
+			display: none;
+			
+			&:checked {
+				& + label {
+					background: #F8F8F8;
+					color: @primary-color;
+				}
+			}
+		}
 	}
+}
+input {
+	&[type="search"],
+	&[type="text"],
+	&[type="email"] {
+		border: 2px solid @primary-color;
+		color: @primary-color;
+		padding: 10px 15px;
+		font-size: 16px;
+		line-height: 22px;
+		border-radius: 10px;
+		width: 100%;
+	}
+}
+button, input[type="submit"] {
+	background: linear-gradient(92.01deg, #8EA7FF 0%, #7291FF 100%);
+	border-radius: 10px;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 22px;
+	color: #FFFFFF;
+	padding: 10px 40px;
+	width: auto;
+	display: inline-block;
+	border: 0;
+	cursor: pointer;
+	.transition();
+	
+	&:hover {
+		background: linear-gradient(92.01deg, #7291FF 0%, #7291FF 100%);
+	}
+}
+#search-result {
+	
 }

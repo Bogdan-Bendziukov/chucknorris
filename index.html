@@ -22,22 +22,24 @@
 		<h1 class="title">Hey!</h1>
 		<h2 class="subtitle">Let’s try to find a joke for you:</h2>
 		
-		<form class="joke-form" method="get">
+		<form class="joke-form" id="joke-form" method="get">
 			<input type="radio" name="joke-type" class="radio" value="random" id="radio-random" checked /><label for="radio-random">Random</label>
-			<input type="radio" name="joke-type" class="radio" value="cat" id="radio-cat" /><label for="radio-cat">From caterogies</label>
+			<input type="radio" name="joke-type" class="radio" value="categories" id="radio-cat" /><label for="radio-cat">From caterogies</label>
 			<div class="joke-cats joke-toggle">
-				<span class="joke-cat">animal</span>
-				<span class="joke-cat">career</span>
-				<span class="joke-cat selected">celebrity</span>
-				<span class="joke-cat">dev</span>
+				
 			</div>
-			<input type="hidden" name="joke-cats" />
 			<input type="radio" name="joke-type" class="radio" value="search" id="radio-search" /><label for="radio-search">Search</label>
 			<div class="joke-search joke-toggle">
 				<input type="search" name="joke-search" placeholder="Free text search..." />
 			</div>
 			<button class="btn" type="submit">Get a joke</button>
 		</form>
+		
+		<div id="search-result">
+			<div class="joke-single">
+				
+			</div>
+		</div>
 	</section>
 </div>
 
