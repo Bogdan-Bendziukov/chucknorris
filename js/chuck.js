@@ -31,6 +31,7 @@ getChuck('categories').then(data => {
 		
 		let label = document.createElement('label');
 		label.setAttribute('for', data[i].replace(/ /g,"_"));
+		label.setAttribute('class', 'joke-cat');
 		label.innerHTML = data[i];
 		
 		jokeCatsDiv.appendChild(radio);

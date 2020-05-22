@@ -9,6 +9,15 @@ body {
   font-size: 18px;
   line-height: 1.4;
 }
+a {
+  transition: all 300ms ease-in;
+  text-decoration: none;
+  color: #8ea7ff;
+  border-bottom: 1px solid #8ea7ff;
+}
+a:hover {
+  border-bottom: 1px solid transparent;
+}
 .site-wrapper {
   max-width: 960px;
   margin: 0 auto;
@@ -90,7 +99,14 @@ body {
   align-items: center;
   flex-wrap: wrap;
 }
-.joke-cats label {
+.joke-cats [type="radio"] {
+  display: none;
+}
+.joke-cats [type="radio"]:checked + label {
+  background: #F8F8F8;
+  color: #333;
+}
+.joke-cat {
   border: 2px solid #F8F8F8;
   border-radius: 6px;
   font-weight: 500;
@@ -106,16 +122,90 @@ body {
   transition: all 300ms ease-in;
   cursor: pointer;
 }
-.joke-cats label:hover {
+.joke-cat:hover {
   background: #F8F8F8;
   color: #333;
 }
-.joke-cats [type="radio"] {
-  display: none;
-}
-.joke-cats [type="radio"]:checked + label {
+.joke-single {
   background: #F8F8F8;
+  padding: 40px;
+  border-radius: 20px;
+}
+.joke-single__inner {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding-left: 60px;
+  position: relative;
+}
+.joke-single__inner:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 27px;
+  width: 40px;
+  height: 40px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  background-image: url('../img/message.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+.joke-single .joke-cat {
+  font-size: 10px;
+  line-height: 14px;
   color: #333;
+  border: 0;
+  background: #fff;
+  padding: 6px 20px;
+  cursor: default;
+}
+.joke-like {
+  background-image: url('../img/like.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 20px;
+  height: 17px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+.joke-id {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 14px;
+  color: #ABABAB;
+  margin-bottom: 5px;
+}
+.joke-id a {
+  position: relative;
+}
+.joke-id a:after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  display: inline-block;
+  position: absolute;
+  background-image: url('../img/link.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.joke-text {
+  margin-bottom: 28px;
+}
+.joke-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.joke-updated {
+  font-size: 10px;
+  line-height: 14px;
+  color: #ABABAB;
 }
 input[type="search"],
 input[type="text"],
