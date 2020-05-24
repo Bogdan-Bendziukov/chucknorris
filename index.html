@@ -15,42 +15,38 @@
 
 <body>
 <div class="site-wrapper">
-	<header class="site-header">
-		MSI 2020
-	</header>
-	<section class="site-content">
-		<h1 class="title">Hey!</h1>
-		<h2 class="subtitle">Let’s try to find a joke for you:</h2>
-		
-		<form class="joke-form" id="joke-form" method="get">
-			<input type="radio" name="joke-type" class="radio" value="random" id="radio-random" checked /><label for="radio-random">Random</label>
-			<input type="radio" name="joke-type" class="radio" value="categories" id="radio-cat" /><label for="radio-cat">From caterogies</label>
-			<div class="joke-cats joke-toggle">
-				
-			</div>
-			<input type="radio" name="joke-type" class="radio" value="search" id="radio-search" /><label for="radio-search">Search</label>
-			<div class="joke-search joke-toggle">
-				<input type="search" name="joke-search" placeholder="Free text search..." />
-			</div>
-			<button class="btn" type="submit">Get a joke</button>
-		</form>
-		
-		<div id="search-result">
-			<!--<div class="joke-single">
-				<div class="joke-single__inner">
-					<span class="joke-like"></span>
-					<div class="joke-id">ID: <a href="#" target="_blank">XNaAxUduSw6zANDaIEab7A</a></div>
-					<div class="joke-text">
-					No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.
-					</div>
-					<div class="joke-bottom">
-						<span class="joke-updated">Last update: 1923 hours ago</span>
-						<span class="joke-cat">celebrity</span>
-					</div>
+	<div class="site-wrapper__inner">
+		<header class="site-header">
+			MSI 2020
+		</header>
+		<section class="site-content">
+			<h1 class="title">Hey!</h1>
+			<h2 class="subtitle">Let’s try to find a joke for you:</h2>
+			
+			<form class="joke-form" id="joke-form" method="get">
+				<input type="radio" name="joke-type" class="radio" value="random" id="radio-random" checked /><label for="radio-random">Random</label>
+				<input type="radio" name="joke-type" class="radio" value="categories" id="radio-cat" /><label for="radio-cat">From caterogies</label>
+				<div class="joke-cats joke-toggle">
+					
 				</div>
-			</div>-->
-		</div>
-	</section>
+				<input type="radio" name="joke-type" class="radio" value="search" id="radio-search" /><label for="radio-search">Search</label>
+				<div class="joke-search joke-toggle">
+					<input type="search" name="joke-search" placeholder="Free text search..." />
+				</div>
+				<button class="btn" type="submit">Get a joke</button>
+			</form>
+			
+			<div id="search-result">
+			
+			</div>
+		</section>
+	</div>
+</div>
+<div class="site-sidebar">
+	<header class="site-sidebar__header">
+		Favourite
+	</header>
+	
 </div>
 
 <script src="js/chuck.js"></script>

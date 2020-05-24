@@ -4,27 +4,42 @@ const CHUCK_API = 'https://api.chucknorris.io/jokes/';
 
 const jokeForm = document.getElementById("joke-form");
 const searchResult = document.getElementById("search-result");
+const sidebar = document.getElementsByClassName('site-sidebar')[0];
 
 let getChuck = async (endpoint) => {
 	const response = await fetch(CHUCK_API + endpoint);
-	const data = await response.json();
-	return data;
+	if (response.status == 200) {
+		const data = await response.json();
+		return data;
+	}
+	throw new Error("Couldn't get data from Chuck!");
 }
 
-let printJokes = (data) => {
+let printJokes = (data, placeholder = searchResult, isFav = false) => {
+	if (!data) {
+		placeholder.innerHTML = 'Nothing found'; 
+		return;
+	}
+	
 	let jokeDiv = document.createElement('div');
 	let jokeCats = '';
-	let jokeUpdated = Date.now() - Date.parse(data.updated_at);
+	let jokeLiked = '';
+	let jokeUpdated = data.updated_at ? (Date.now() - Date.parse(data.updated_at)) : (Date.now() - Date.parse(data.created_at));
 	let hours = Math.floor(jokeUpdated/1000/60/60);
-	if (data.categories.length > 0) {
+	if (data.categories && data.categories.length > 0) {
 		for (let i = 0; i < data.categories.length; i += 1) {
 			jokeCats =`<span class="joke-cat">${data.categories[i]}</span>`;
 		}
 	}
-	jokeDiv.setAttribute('class', 'joke-single');	
+	
+	jokeDiv.setAttribute('class', 'joke-single');
+	if (isFav) {
+		jokeDiv.classList.add('fav');
+		jokeLiked = 'liked';
+	}
 	jokeDiv.innerHTML = `
 				<div class="joke-single__inner">
-					<span class="joke-like" data-id="${data.id}"></span>
+					<span class="joke-like ${jokeLiked}" data-id="${data.id}" data-value="${data.value}" data-updated_at="${data.updated_at}"></span>
 					<div class="joke-id">ID: <a href="${data.url}" target="_blank">${data.id}</a></div>
 					<div class="joke-text">
 					${data.value}
@@ -35,25 +50,22 @@ let printJokes = (data) => {
 					</div>
 				</div>`;
 	
-	searchResult.appendChild(jokeDiv);
+	placeholder.appendChild(jokeDiv);
 	
 }
 
 function jokeFormSubmit(event){
 	event.preventDefault();
-	
+	searchResult.innerHTML = '';
 	const jokeTypes = jokeForm.querySelectorAll('[name="joke-type"]');
 	const jokeCats = jokeForm.querySelectorAll('[name="joke-cat"]');
-	const jokeSearch = jokeForm.querySelectorAll('[name="joke-search"]')[0];
-	
-	searchResult.innerHTML = '';
+	const jokeSearch = jokeForm.querySelectorAll('[name="joke-search"]')[0];	
 	
 	for (let i = 0; i < jokeTypes.length; i += 1) {
 		if (jokeTypes[i].checked) {
 			switch (jokeTypes[i].value) {
 				case 'random':
-					getChuck('random').then(data => {
-						console.log(data);
+					getChuck('random').then(data => {					
 						printJokes(data);
 					});
 					break;
@@ -68,9 +80,20 @@ function jokeFormSubmit(event){
 					}
 					break;
 				case 'search':
-					getChuck('search?query=' + encodeURI(jokeSearch.value)).then(data => {
-						printJokes( data.result[Math.floor(Math.random() * data.total)] );						
-					});
+					if (jokeSearch.value) {
+						jokeSearch.classList.remove('invalid');
+						getChuck('search?query=' + encodeURI(jokeSearch.value)).then(data => {
+							// print random jokes from search
+							// printJokes( data.result[Math.floor(Math.random() * data.result.length)] );	
+							
+							// print all jokes
+							for (let res = 0; res < data.result.length; res += 1) {								
+								printJokes( data.result[res] );	
+							}							
+						});
+					} else {
+						jokeSearch.classList.add('invalid');
+					}
 					break;
 				default:
 					break;
@@ -80,7 +103,65 @@ function jokeFormSubmit(event){
 	}
 }
 
+function jokeLike(event) {
+	if(lsTest() === true){
+		const el = event.target;
+		let chuckJokes = JSON.parse(localStorage.getItem("chuckJokes"));
+		if (!chuckJokes) chuckJokes = {};
+		const jokeObj = {
+			[el.getAttribute('data-id')]: {
+				"id": el.getAttribute('data-id'),
+				"value": el.getAttribute('data-value'),
+				"updated_at": el.getAttribute('data-updated_at')
+			}
+		};
+		if (chuckJokes.hasOwnProperty(el.getAttribute('data-id'))) {
+			delete chuckJokes[el.getAttribute('data-id')];
+			el.classList.remove('liked');
+			setTimeout(() => {el.closest('.joke-single.fav').remove()}, 300);
+		} else {
+			Object.assign(chuckJokes, jokeObj);
+			el.classList.add('liked');
+			printJokes(jokeObj, sidebar, true);
+		}
+		localStorage.setItem("chuckJokes", JSON.stringify(chuckJokes));
+		
+	} else {
+		throw new Error("No place to save your data, sorry :(");
+	}
+}
+
+function lsTest(){
+    var test = 'test';
+    try {
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+    } catch(e) {
+        return false;
+    }
+}
+
+function printFavJokes() {
+	
+	let chuckJokes = JSON.parse(localStorage.getItem("chuckJokes"));
+	if (chuckJokes) {
+		for (let i in chuckJokes) {
+			printJokes(chuckJokes[i], sidebar, true);
+		}
+	}
+}
+
+
+    
+
+
 jokeForm.addEventListener("submit", jokeFormSubmit, false);
+document.addEventListener('click',function(event){
+    if( event.target && event.target.classList.contains('joke-like') ){
+        jokeLike(event);
+    }
+ });
 
 getChuck('categories').then(data => {
 	const jokeCatsDiv = document.getElementsByClassName('joke-cats')[0];
@@ -104,3 +185,6 @@ getChuck('categories').then(data => {
 		jokeCatsDiv.appendChild(label);
 	}
 });
+
+printFavJokes();
+
