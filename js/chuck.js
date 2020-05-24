@@ -5,6 +5,8 @@ const CHUCK_API = 'https://api.chucknorris.io/jokes/';
 const jokeForm = document.getElementById("joke-form");
 const searchResult = document.getElementById("search-result");
 const favourites = document.getElementById("favourites");
+const favMobBtn = document.getElementById("fav-mob");
+const overlay = document.getElementById("overlay");
 
 let getChuck = async (endpoint) => {
 	const response = await fetch(CHUCK_API + endpoint);
@@ -39,7 +41,7 @@ let printJokes = (data, placeholder = searchResult, isFav = false) => {
 	}
 	jokeDiv.innerHTML = `
 				<div class="joke-single__inner">
-					<span class="joke-like ${jokeLiked}" data-id="${data.id}" data-value="${data.value}" data-updated_at="${data.updated_at}"></span>
+					<span class="joke-like ${jokeLiked}" data-id="${data.id}" data-url="${data.url}" data-value="${data.value}" data-updated_at="${data.updated_at}"></span>
 					<div class="joke-id">ID: <a href="${data.url}" target="_blank">${data.id}</a></div>
 					<div class="joke-text">
 					${data.value}
@@ -113,6 +115,7 @@ function jokeLike(event) {
 			[el.getAttribute('data-id')]: {
 				"id": el.getAttribute('data-id'),
 				"value": el.getAttribute('data-value'),
+				"url": el.getAttribute('data-url'),
 				"updated_at": el.getAttribute('data-updated_at')
 			}
 		};
@@ -160,11 +163,17 @@ function printFavJokes() {
 	}
 }
 
-
+function favMobToggle(){
+	document.getElementsByClassName('site-sidebar')[0].classList.toggle('open');
+	overlay.classList.toggle('open');
+	favMobBtn.classList.toggle('open');
+}
     
 
 
 jokeForm.addEventListener("submit", jokeFormSubmit, false);
+favMobBtn.addEventListener("click", favMobToggle, false);
+overlay.addEventListener("click", favMobToggle, false);
 document.addEventListener('click',function(event){
     if( event.target && event.target.classList.contains('joke-like') ){
         jokeLike(event);

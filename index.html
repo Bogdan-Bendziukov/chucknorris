@@ -14,39 +14,45 @@
 </head>
 
 <body>
-<div class="site-wrapper">
-	<div class="site-wrapper__inner">
-		<header class="site-header">
-			MSI 2020
-		</header>
-		<section class="site-content">
-			<h1 class="title">Hey!</h1>
-			<h2 class="subtitle">Let’s try to find a joke for you:</h2>
-			
-			<form class="joke-form" id="joke-form" method="get">
-				<input type="radio" name="joke-type" class="radio" value="random" id="radio-random" checked /><label for="radio-random">Random</label>
-				<input type="radio" name="joke-type" class="radio" value="categories" id="radio-cat" /><label for="radio-cat">From caterogies</label>
-				<div class="joke-cats joke-toggle">
-					
+
+<div class="site-cover">
+	<div class="site-wrapper">
+		<div class="site-wrapper__inner">
+			<header class="site-header">
+				<span>MSI 2020</span>
+				<span id="fav-mob"><span>Favourite</span></span>
+				
+			</header>
+			<div id="overlay"></div>
+			<section class="site-content">
+				<h1 class="title">Hey!</h1>
+				<h2 class="subtitle">Let’s try to find a joke for you:</h2>
+				
+				<form class="joke-form" id="joke-form" method="get">
+					<input type="radio" name="joke-type" class="radio" value="random" id="radio-random" checked /><label for="radio-random">Random</label>
+					<input type="radio" name="joke-type" class="radio" value="categories" id="radio-cat" /><label for="radio-cat">From caterogies</label>
+					<div class="joke-cats joke-toggle">
+						
+					</div>
+					<input type="radio" name="joke-type" class="radio" value="search" id="radio-search" /><label for="radio-search">Search</label>
+					<div class="joke-search joke-toggle">
+						<input type="search" name="joke-search" placeholder="Free text search..." />
+					</div>
+					<button class="btn" type="submit">Get a joke</button>
+				</form>
+				
+				<div id="search-result">
+				
 				</div>
-				<input type="radio" name="joke-type" class="radio" value="search" id="radio-search" /><label for="radio-search">Search</label>
-				<div class="joke-search joke-toggle">
-					<input type="search" name="joke-search" placeholder="Free text search..." />
-				</div>
-				<button class="btn" type="submit">Get a joke</button>
-			</form>
-			
-			<div id="search-result">
-			
-			</div>
-		</section>
+			</section>
+		</div>
 	</div>
-</div>
-<div class="site-sidebar">
-	<header class="site-sidebar__header">
-		Favourite
-	</header>
-	<div id="favourites"></div>
+	<div class="site-sidebar">
+		<header class="site-sidebar__header">
+			Favourite
+		</header>
+		<div id="favourites"></div>
+	</div>
 </div>
 
 <script src="js/chuck.js"></script>
