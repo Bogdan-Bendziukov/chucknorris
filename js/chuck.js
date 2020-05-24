@@ -4,7 +4,7 @@ const CHUCK_API = 'https://api.chucknorris.io/jokes/';
 
 const jokeForm = document.getElementById("joke-form");
 const searchResult = document.getElementById("search-result");
-const sidebar = document.getElementsByClassName('site-sidebar')[0];
+const favourites = document.getElementById("favourites");
 
 let getChuck = async (endpoint) => {
 	const response = await fetch(CHUCK_API + endpoint);
@@ -65,7 +65,8 @@ function jokeFormSubmit(event){
 		if (jokeTypes[i].checked) {
 			switch (jokeTypes[i].value) {
 				case 'random':
-					getChuck('random').then(data => {					
+					getChuck('random').then(data => {
+						//console.log(data);
 						printJokes(data);
 					});
 					break;
@@ -118,11 +119,19 @@ function jokeLike(event) {
 		if (chuckJokes.hasOwnProperty(el.getAttribute('data-id'))) {
 			delete chuckJokes[el.getAttribute('data-id')];
 			el.classList.remove('liked');
-			setTimeout(() => {el.closest('.joke-single.fav').remove()}, 300);
+			setTimeout(() => {
+				if (el.closest('.joke-single.fav')){
+					el.closest('.joke-single.fav').remove();
+					document.querySelectorAll('[data-id="' + el.getAttribute('data-id') + '"]')[0].classList.remove('liked');
+				} else {
+					favourites.innerHTML = '';
+					printFavJokes();
+				}
+			}, 500);
 		} else {
 			Object.assign(chuckJokes, jokeObj);
 			el.classList.add('liked');
-			printJokes(jokeObj, sidebar, true);
+			printJokes(jokeObj[el.getAttribute('data-id')], favourites, true);
 		}
 		localStorage.setItem("chuckJokes", JSON.stringify(chuckJokes));
 		
@@ -142,12 +151,11 @@ function lsTest(){
     }
 }
 
-function printFavJokes() {
-	
+function printFavJokes() {	
 	let chuckJokes = JSON.parse(localStorage.getItem("chuckJokes"));
 	if (chuckJokes) {
 		for (let i in chuckJokes) {
-			printJokes(chuckJokes[i], sidebar, true);
+			printJokes(chuckJokes[i], favourites, true);
 		}
 	}
 }
