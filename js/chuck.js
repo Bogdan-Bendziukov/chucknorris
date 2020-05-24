@@ -1,5 +1,7 @@
 "use strict";
 
+import '../css/chuck.less';
+
 const CHUCK_API = 'https://api.chucknorris.io/jokes/';
 
 const jokeForm = document.getElementById("joke-form");

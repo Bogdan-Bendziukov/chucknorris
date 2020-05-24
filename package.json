@@ -1,0 +1,28 @@
+{
+  "name": "chucknorris",
+  "version": "1.0.0",
+  "description": "Chuck Norris API Page for MacPaw Internship 2020",
+  "main": "js/chuck.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bogdan-Bendziukov/chucknorris.git"
+  },
+  "author": "Bogdan Bendziukov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bogdan-Bendziukov/chucknorris/issues"
+  },
+  "homepage": "https://github.com/Bogdan-Bendziukov/chucknorris#readme",
+  "devDependencies": {
+    "css-loader": "^3.5.3",
+    "file-loader": "^6.0.0",
+    "less-loader": "^6.1.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
